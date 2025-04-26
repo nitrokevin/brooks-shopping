@@ -1,0 +1,102 @@
+
+
+ .info-block {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  max-width: 100vw;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top:$global-padding*2;
+  padding-bottom:$global-padding*2;
+ 
+
+.info-block-container {
+	@include xy-grid-container;
+}
+
+  .info-block-grid
+   {
+	@include xy-grid;
+	@include xy-cell(12);
+	
+  }
+
+  &.alignfull {
+	 
+   
+	.info-block-grid-alignfull {
+	@include xy-grid;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      max-width: 100vw;
+	padding: 0 2.5%;
+   	 }
+	
+  }
+
+}
+
+
+.info-block-item{
+	@include xy-cell(6, $gutters:4);
+	@include xy-grid;
+	@include flex-direction(column);
+	align-items: center;
+	position: relative;
+	margin-bottom: 0.5rem;
+	@include breakpoint(medium){
+		@include xy-cell(4, $gutters:4);
+	}
+	@include breakpoint(large) {
+	  @include xy-cell(4, $gutters:4);
+	}
+	@include breakpoint(xlarge) {
+	  @include xy-cell(2, $gutters:4);
+	}
+	&.section-heading{
+		font-size: rem-calc(18);
+		line-height: 1.2;
+		font-weight: $global-weight-bold;
+		text-transform: uppercase;
+		@include flex-align-self(middle);
+			@include breakpoint(medium) {
+			 font-size: rem-calc(20);
+			}
+
+			@include breakpoint(xlarge) {
+			  font-size: rem-calc(24);
+			}
+
+	}
+	.item-heading{
+		font-size: rem-calc(30);
+		text-transform: uppercase;
+		font-weight: $global-weight-bold;
+		text-align: center;
+		@include breakpoint(medium) {
+		  font-size: rem-calc(40);
+		}
+		
+		
+	}
+	.icon{
+		width: 80%;
+		@include breakpoint(medium) {
+		width: 100%;
+		}
+		padding-bottom: 0.5rem;
+		margin: 0 auto;
+		max-width: 9rem;
+	}
+	p{
+		font-weight: $global-weight-light;
+		text-transform: uppercase;
+		font-size: rem-calc(20);
+		text-align: center;
+		@include breakpoint(medium) {
+		
+		font-size: rem-calc(22);
+		}
+	}
+	
+}

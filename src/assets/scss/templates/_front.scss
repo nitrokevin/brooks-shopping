@@ -1,0 +1,199 @@
+// Page header
+.front-hero {
+  position: relative;
+  .marketing {
+    @include xy-grid-container();
+    @include xy-grid;
+    height:100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  @include breakpoint(small) {
+    background-size: cover;
+    background-position: bottom;
+     height: rem-calc(290);
+    position: relative;
+    text-align: left;
+  }
+
+  @include breakpoint(medium) {
+    background-size: cover;
+    background-position: center;
+    height: rem-calc(400);
+   
+  }
+    @include breakpoint(large) {
+      background-size: cover;
+      background-position: center;
+      height: rem-calc(580);
+     
+    }
+    @include breakpoint(xlarge) {
+      background-size: cover;
+      background-position: center;
+      height: rem-calc(780);
+    
+    }
+
+  .tagline {
+    background-color: rgba($white, 0.75);
+    position: relative;
+    height:100%;
+    @include breakpoint(small) {
+      @include xy-cell(7);
+      padding-top: 6rem;
+    }
+
+    @include breakpoint(medium) {
+      @include xy-cell(4.5);
+      padding-top: 10rem;
+    }
+      @include breakpoint(large) {
+        @include xy-cell(4);
+        padding-top: 14rem;
+      }
+  }
+  .tagline:before{
+    
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50vw;
+      /* Extend half the viewport width */
+      z-index: 1;
+      /* Ensure it appears behind the content */
+       background-color: inherit;
+      /* Matches the block's background color */
+    left: -50vw;
+
+  }
+
+  h1 {
+    color: $black;
+    text-transform: uppercase;
+    font-weight: $global-weight-medium;
+  }
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .slider-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Place video below the overlay */
+  }
+}
+
+
+
+//Latest Items
+.latest-items{
+  padding:2rem 0;
+.sbi,
+#sbi_images,
+.sbi_item,
+.sbi_inner_wrap {
+  height: 100%;
+  background: $medium-gray;
+}
+#sb_instagram #sbi_images{
+  padding:0 !important;
+}
+&.brooksy{
+  .latest-news-header {
+      background-color: $theme-color-3;
+  }
+  .sbi_instagram_button{
+    background-color: $theme-color-3 !important;
+  }
+}
+
+.latest-news-header{
+  font-size: rem-calc(20);
+  background-color: $theme-color-1;
+  color: $black;
+  text-transform: uppercase;
+  text-align: center;
+  padding:0.5rem 0;
+  font-weight: $global-weight-bold;
+}
+
+.sbi_info{
+    padding: 2rem;
+  .sbi_caption{
+  font-size: rem-calc(20) !important; 
+  font-weight: $global-weight-bold;
+  color:$black !important;
+}
+}
+
+.sbi_photo{
+   height: 0 !important;
+   padding-bottom:60% !important;
+}
+.sbi_link_wrap{
+    padding:2rem;
+    
+    align-self: flex-end;
+    text-align: center;
+    a{
+    width:100%;
+    }
+}
+.latest-event-container {
+  height:100%;
+  text-align: center;
+  .latest-event{
+       @include card-container($background: $medium-gray,
+       $color:inherit,
+         $margin: 0,
+         $border: 0px,
+         $radius: 0px,
+         $shadow: 0);
+       display: flex;
+       height: 100%; // Ensures the card stretches
+       margin-bottom: 0;
+  }
+.latest-event-header {
+  font-size: rem-calc(20);
+  background-color: $theme-color-2;
+  color: $black;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.5rem 0;
+  font-weight: $global-weight-bold;
+}
+.header-image{
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+    height: 0 !important;
+    padding-bottom:60% !important;
+}
+.latest-event-info{
+  padding:2rem;
+  .event-title{
+      font-size: rem-calc(20);
+      font-weight: $global-weight-bold;
+  }
+}
+.latest-event-link{
+  padding:2rem;
+  width:100%;
+   margin-top: auto;
+   align-self: flex-end;
+   text-align: center;
+}
+}
+
+}

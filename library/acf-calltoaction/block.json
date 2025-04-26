@@ -1,0 +1,14 @@
+{
+    "name": "acf/acf-calltoaction",
+    "title": "Call to action",
+    "description": "Call to action block",
+    "style": [ "file:./dist/assets/css/editor.css" ],
+    "category": "avidd-blocks",
+    "icon": "button",
+    "keywords": ["action"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template-parts/blocks/cta-block.php"
+    }
+   
+}

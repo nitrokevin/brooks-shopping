@@ -1,0 +1,681 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+.main-container {
+  @include xy-grid-container;
+}
+
+.main-grid {
+  @include xy-grid();
+  margin-top: 0;
+
+  @include breakpoint(medium) {
+    margin-top: 0;
+  }
+
+  &.sidebar-left {
+    // Place the sidebar below main content on small screens ...
+    @include breakpoint(small) {
+      .main-content { order: 1; }
+      .sidebar { order: 2; }
+    }
+
+    // ... and to the left on medium-up screens, when using the sidebar-left template
+    @include breakpoint(medium) {
+      .main-content { order: 2; }
+      .sidebar { order: 1; }
+    }
+  }
+}
+.header-grid {
+  @include xy-grid();
+  margin-top: 0;
+  padding: 2rem 0;
+  background-position: 9rem center;
+   @include breakpoint(medium) {
+     background-position: center right;
+    padding: 4rem 0;
+   }
+  @include breakpoint(large) {
+  padding: 5rem 0;
+  }
+  position: relative;
+  background-size: contain;
+ 
+  background-repeat: no-repeat;
+
+  &.shop {
+    background-color: $secondary-color;
+      color: color-pick-contrast($secondary-color, $colors: ($white, $black, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance) !important;
+
+    ::before {
+      background-color: $secondary-color;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        max-width: 100vw;
+        width: 100vw;
+        height: 100%;
+        z-index: -1;
+    }
+  }
+
+
+  &.meet {
+    background-color: $theme-color-1;
+      color: color-pick-contrast($theme-color-1, $colors: ($white, $black, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance) !important;
+
+    ::before {
+      background-color: $theme-color-1;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        max-width: 100vw;
+        width: 100vw;
+        height: 100%;
+        z-index: -1;
+         }
+  }
+
+  &.play {
+    background-color: $theme-color-2;
+      color: color-pick-contrast($theme-color-2, $colors: ($white, $black, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance) !important;
+
+    ::before {
+      background-color: $theme-color-2;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        max-width: 100vw;
+        width: 100vw;
+        height: 100%;
+        z-index: -1;
+    }
+  }
+
+  
+    .header-content {
+      @include xy-cell(8);
+      @include breakpoint(medium) {
+       @include xy-cell(12);
+      }
+      @include breakpoint(large){
+      @include xy-cell(12);
+      }
+      h1{
+        text-transform: uppercase;
+      }
+      p{
+        @include breakpoint(medium){
+        max-width: 60%;
+        }
+        @include breakpoint(large) {
+          max-width: 40%;
+        }
+      }
+.header-functions-grid{
+   @include xy-grid();
+   padding:0;
+   margin:0;
+   .header-search{
+     @include xy-cell(12, $gutters:0);
+     
+     @include breakpoint(medium) {
+    @include xy-cell(5, $gutters:0);
+      @include xy-gutters($gutter-position: right bottom);
+     }
+    
+   }
+   .header-cta {
+     @include xy-cell(12, $gutters:0);
+
+     @include breakpoint(medium) {
+     @include xy-cell(5, $gutters:0);
+     }
+    
+   }
+}
+.header-content-grid {
+  @include xy-grid(); // Ensures flex display
+  padding: 0;
+  margin: 0;
+  @include xy-gutters($gutter-position: right bottom); // Apply gutters globally
+
+  .header-content-title {
+    @include xy-cell(8, $gutters: 0); // Full width on small screens
+
+    @include breakpoint(medium) {
+      @include xy-cell(8, $gutters: 0); // No gutter applied
+      
+    }
+      @include breakpoint(large) {
+        @include xy-cell(9, $gutters: 0); // No gutter applied
+
+      }
+  }
+
+  .header-content-image {
+    @include xy-cell(4, $gutters: 0); // Full width on small screens
+
+    @include breakpoint(medium) {
+      @include xy-cell(4); // Automatically includes the right gutter
+    }
+     @include breakpoint(large) {
+       @include xy-cell(3); // Automatically includes the right gutter
+     }
+
+    position: relative; // Ensures absolute children are positioned within this
+
+    .header-image-wrap {
+      position: absolute;
+      top: -1rem;
+      @include breakpoint(medium) {
+      top: -4rem;
+      }
+      width: auto;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+    }
+}
+.post-type-archive-events .header-grid,
+.blog .header-grid,
+.page-template-page-full-width .header-grid {
+  .header-content {
+    @include xy-cell(12);
+  }
+
+}
+.header-grid.page-alt{
+  margin-bottom: 1rem;
+      @include breakpoint(medium) {
+margin-bottom: 3rem;
+      }
+}
+.header-grid {
+  position: relative; // Ensure the pseudo-element is positioned relative to .header-grid
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    max-width: 100vw;
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+  }
+
+  @each $color,
+  $code in $foundation-palette {
+    &.#{$color} {
+      background-color: $code;
+      color: color-pick-contrast($code, $colors: ($white, $black, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance) !important;
+
+      &::before {
+        background-color: $code;
+      }
+    }
+  }
+}
+
+
+
+  // Full width template
+  .main-content-full-width {
+    @include xy-cell(12);
+
+    article{
+        @include xy-grid();
+        header{
+           @include xy-cell(3);
+        }
+        .header-right{
+          @include xy-cell(9);
+        }
+        .entry-content{
+           @include xy-cell(12);
+        }
+    }
+  }
+
+  // Default template
+  .main-content {
+    @include breakpoint(small) {
+      @include xy-cell(12);
+    }
+
+    @include breakpoint(medium) {
+      @include xy-cell(8);
+    }
+  }
+
+  .sidebar {
+    @include breakpoint(small) {
+      @include xy-cell(12);
+    }
+
+    @include breakpoint(medium) {
+      @include xy-cell(4);
+      margin-top: 1rem;
+    }
+
+  }
+
+.opening-times{
+  list-style: none;
+  margin-left:0;
+}
+  .subheader{
+    text-transform: uppercase;
+  }
+.grecaptcha-badge { 
+  visibility: hidden;
+}
+
+
+.stores-content {
+  @include breakpoint(small) {
+    @include xy-cell(12, $gutters: 0);
+  }
+
+  .content {
+    display: block;
+  }
+
+  .entry-content {
+    @include xy-cell(11);
+    margin-top: 1rem;
+  }
+
+  .stores {
+    @include xy-grid();
+    @include flex-align($x: left, $y: stretch);
+    display: block;
+    position: relative;
+
+    header {
+      background-color: $light-gray;
+      position: relative;
+      z-index: -1;
+      text-align: center;
+
+      img {
+        width: 100%;
+        max-width: 20rem;
+        height: auto;
+        object-fit: contain;
+        max-height: 10rem;
+        min-width:7rem;
+        min-height:4rem;
+        margin: 4rem 0;
+
+        @include breakpoint(large) {
+          margin: 4.5rem 0;
+        }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100%;
+        background-color: $light-gray;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+
+        @include breakpoint(medium) {
+          width: 50vw;
+        }
+
+        z-index: -1;
+      }
+    }
+
+    .header-image-wrap {
+      float: right;
+      margin-bottom: 2rem;
+      margin-left: 1rem;
+      width: 100%;
+      height: 12rem;
+       @include breakpoint(medium) {
+         width: 45%;
+         height: 30rem;
+       }
+
+      @include breakpoint(large) {
+        margin-left: 3rem;
+      }
+
+     
+
+      @include breakpoint(xlarge) {
+        width: 50%;
+        height: 45rem;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  .social-links{
+    align-items: flex-end;
+
+  }
+  .icon {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+ .store_category-shop {
+   $button-background: $secondary-color;
+
+   hr {
+     border-bottom-color: $button-background;
+     @include breakpoint(medium){
+     display: inline-block;
+     width: 50%;
+     }
+     clear: none;
+   }
+   .fa-circle{
+    color:$button-background;
+   }
+   
+   .button {
+     background-color: $button-background;
+     color: $button-color-alt;
+
+     &:hover {
+       background-color: scale-color($button-background, $lightness: 55%);
+     }
+   }
+ }
+
+ .store_category-meet {
+   $button-background: $theme-color-1;
+
+   hr {
+     border-bottom-color: $button-background;
+     @include breakpoint(medium) {
+       display: inline-block;
+       width: 50%;
+     }
+     clear: none;
+   }
+  .fa-circle {
+    color: $button-background;
+  }
+   .button {
+     background-color: $button-background;
+     color: $button-color-alt;
+
+     &:hover {
+       background-color: scale-color($button-background, $lightness: 55%);
+     }
+   }
+ }
+
+ .store_category-play {
+   $button-background: $theme-color-2;
+
+   hr {
+     border-bottom-color: $button-background;
+     @include breakpoint(medium) {
+       display: inline-block;
+       width: 50%;
+     }
+     clear: none;
+   }
+  .fa-circle {
+    color: $button-background;
+  }
+   .button {
+     background-color: $button-background;
+     color: $button-color-alt;
+
+     &:hover {
+       background-color: scale-color($button-background, $lightness: 55%);
+     }
+   }
+ }
+}
+
+/* Store Grid */
+.store-grid {
+  @include flex-align($x: left, $y: top);
+  @include xy-grid();
+  margin-top: $global-margin * 2;
+
+  @include breakpoint(medium) {
+    @include xy-grid-layout(2, 'article', $output: (size gutters));
+  }
+
+  @include breakpoint(large) {
+    @include xy-grid-layout(4, 'article', $output: (size gutters));
+  }
+
+  list-style: none;
+  text-align: center;
+
+  article {
+    @include xy-grid();
+    @include flex-align($y: stretch);
+    @include flex-align-self($y: stretch);
+    background-color: $primary-color;
+    margin-bottom: $global-margin * 2;
+  }
+
+  header {
+    display: flex;
+    @include flex-align($x: center, $y: middle);
+    padding: 4rem;
+    background-color: $light-gray;
+    height: 35%;
+    width: 100%;
+    img{
+       width: unset !important;
+       height: unset !important;
+       min-width:5rem;
+       min-height:5rem;
+    }
+  }
+
+  .content {
+    .entry-content {
+      @include xy-grid();
+      @include flex-align($x: center);
+      height: 70%;
+      padding: 1rem;
+
+      .store-excerpt {
+        color: $white;
+        text-align: left;
+      }
+
+      .store-link {
+        @include flex-align-self($y: bottom);
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+
+
+// News
+.post article{
+  @include xy-grid();
+  @include flex-align($x:left, $y:stretch);
+  display: block;
+
+  .header-image-wrap {
+    float: right;
+    margin-bottom:2rem;
+    margin-left: 3rem;
+    width: 100%;
+    height:12rem;
+    @include breakpoint(medium) {
+      width: 45%;
+      height:30rem;
+    }
+    @include breakpoint(xlarge){
+    width: 50%;
+    height:45rem;
+    }
+    img{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    }
+  }
+    hr {
+ 
+      @include breakpoint(medium) {
+        display: inline-block;
+        width: 50%;
+      }
+
+      clear: none;
+    }
+
+  .content {
+    display: block;
+   
+  }
+.entry-title-container{
+  position: relative;
+   padding:4rem 0 1rem 0;
+   @include breakpoint(medium) {
+  padding:4rem 0;
+   }
+  background-color: $medium-gray;
+  margin-bottom: 1rem;
+  z-index: -1;
+  .entry-title {
+    font-weight: $global-weight-medium;
+  }
+ 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: $medium-gray;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    @include breakpoint(medium) {
+    
+     width: 50vw;
+    }
+    
+    z-index: -1;
+
+  }
+}
+  .entry-content {
+
+    @include xy-cell(12);
+
+    @include breakpoint(medium) {
+      @include xy-cell(10);
+      
+
+    }
+  }
+}
+
+.index article {
+  @include xy-grid();
+  @include flex-align($x:left, $y:stretch);
+  padding: 2rem 0;
+  .image-container {
+    @include xy-cell(12, $gutters:0);
+
+    @include breakpoint(medium) {
+      @include xy-cell(5, $gutters:0);
+    }
+
+    .header-image {
+      background-size: cover;
+      background-position: center;
+      padding-bottom: 70%;
+      margin-bottom: 1rem;
+      @include breakpoint(medium) {
+        padding-bottom: unset;
+        height: 95%;
+        margin-bottom: 2rem;
+      }
+
+      @include breakpoint(large) {
+        padding-bottom: 70%;
+        height: unset;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  .content {
+    @include xy-grid();
+    @include flex-align($x:left, $y:top);
+    @include xy-cell(12, $gutters:0);
+    @include breakpoint(medium) {
+      @include xy-cell(7);
+    }
+  }
+
+  .entry-content {
+    
+    @include xy-cell(12, $gutters:0);
+
+    @include breakpoint(medium) {
+      @include xy-cell(10);
+     
+    }
+  }
+  }
+
+
+
+  // Events Grid
+.events-grid {
+  @include flex-align($x: left, $y: stretch);
+  @include xy-grid();
+  margin-top: $global-margin * 2;
+flex-direction: column;
+  @include breakpoint(medium) {
+    flex-direction: row;
+    @include xy-grid-layout(2, 'article', $output: (size gutters));
+  }
+
+  @include breakpoint(large) {
+    @include xy-grid-layout(4, 'article', $output: (size gutters));
+  }
+
+  list-style: none;
+
+
+ 
+}

@@ -1,0 +1,92 @@
+
+
+.button{
+  font-size: 0.9rem;
+  @include breakpoint(medium){
+  font-size: 1.1rem;
+  }
+  font-weight: $global-weight-bold;
+  text-transform: uppercase;
+}
+
+.submit-button{
+  @extend button;
+}
+
+
+.store_category-shop{
+  .store-link a{
+    $button-background : $secondary-color;
+    $button-background-hover: scale-color($button-background, $lightness: 55%);
+    @include button(true, $button-background, $button-background-hover, auto, solid);
+
+  }
+}
+.store_category-meet {
+  .store-link a {
+    $button-background: $theme-color-1;
+      $button-background-hover: scale-color($button-background, $lightness: 55%);
+    @include button(true, $button-background, $button-background-hover, auto, solid);
+
+  }
+}
+.store_category-play {
+  .store-link a {
+    $button-background: $theme-color-2;
+    $button-background-hover: scale-color($button-background, $lightness: 55%);
+    @include button(true, $button-background, $button-background-hover, auto, solid);
+
+  }
+}
+
+#load-more {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+   text-transform: uppercase;
+
+}
+
+
+.button-group-stacked {
+  @include button-group($child-selector: '.button');
+  @include button-group-stack('.button');
+  width: 100%;
+  max-width:14rem;
+
+  p {
+    margin: 0; // Removes unwanted spacing from ACF WYSIWYG
+  }
+
+  .button {
+    flex: 1; // Makes all buttons equal width
+    display: flex;
+    justify-content: center;
+    margin-bottom:$global-margin;
+     text-transform: uppercase;
+  }
+}
+
+.form-off-canvas-button {
+  position: fixed;
+  width:auto;
+left: -6.3rem;
+top: 50%;
+transform: rotate(-90deg) translateY(-50%) ;
+transform-origin: center center;
+z-index: 999;
+visibility: visible;
+font-size: rem-calc(11);
+padding:0.3rem 0.5rem;
+
+  @include breakpoint(medium) {
+
+    font-size: rem-calc(14);
+   left: -6.2rem;
+    padding:0.6rem 1rem;
+  }
+  }
+
+.position-right {@include breakpoint(medium) {
+  overflow-y: visible;}
+}

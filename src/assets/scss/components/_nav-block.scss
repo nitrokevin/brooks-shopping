@@ -1,0 +1,132 @@
+.block-nav-block {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  max-width: 100vw;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: $global-margin;
+
+  .block-nav-block-container {
+    padding-left: 0;
+    padding-right: 0;
+
+    @include breakpoint(medium) {
+      @include xy-grid-container;
+    }
+  }
+
+  .block-nav-block-grid {
+    @include xy-grid;
+    @include xy-cell(12, $gutters: 0);
+
+    &.alignfull {
+      .block-nav-block-grid {
+        @include xy-grid;
+        @include xy-cell(12);
+      }
+
+      .block-nav-block-grid-alignfull {
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        max-width: 100vw;
+        padding: 0;
+      }
+
+    }
+
+    .nav-block {
+      @include flex-align($x: left, $y: top);
+      position: relative;
+      min-height: 14.5rem;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0);
+
+      @include breakpoint(small) {
+        @include xy-cell(12, $gutters: 0); // Full-width for small screens
+      }
+
+      @include breakpoint(medium) {
+        &:first-child {
+          @include xy-cell(3, $gutters: 0); // Fixed size for the first column
+        }
+
+        &:not(:first-child) {
+          @include xy-cell(auto, $gutters: 0); // Auto-grow for the other columns
+        }
+      }
+
+      @include breakpoint(large) {
+        &:first-child {
+          @include xy-cell(3, $gutters: 0); // Fixed size for the first column
+        }
+
+        &:not(:first-child) {
+          @include xy-cell(auto, $gutters: 0); // Remaining columns take up available space
+        }
+      }
+
+      /* Pseudo-elements for the first and last columns */
+      &:first-child::before,
+      &:last-child::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50vw;
+        /* Extend half the viewport width */
+        z-index: -1;
+        /* Ensure it appears behind the content */
+        background-color: inherit;
+        /* Matches the block's background color */
+      }
+
+      &:first-child::before {
+        left: -50vw;
+        /* Extend to the left */
+      }
+
+      &:last-child::after {
+        right: -50vw;
+        /* Extend to the right */
+      }
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      &:has(a) {
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          z-index: 1;
+        }
+      }
+
+      .heading {
+        @include breakpoint(small) {
+          font-size: rem-calc(24);
+        }
+
+        @include breakpoint(medium) {
+          font-size: rem-calc(30);
+        }
+
+        font-weight: $global-weight-bold;
+        text-transform: uppercase;
+      }
+
+      a i {
+        font-size: 3rem;
+        transition: transform 0.3s ease, font-size 0.3s ease;
+
+        &:hover {
+          transform: scale(2.5);
+        }
+      }
+    }
+  }
+}

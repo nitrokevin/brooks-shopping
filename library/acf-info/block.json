@@ -1,0 +1,14 @@
+{
+    "name": "acf/info",
+    "title": "Info",
+    "description": "Display row of info icons",
+    "style": [ "file:./dist/assets/css/editor.css" ],
+    "category": "avidd-blocks",
+    "icon": "info",
+    "keywords": ["info"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template-parts/blocks/info-block.php"
+    },
+    "align": "full"
+}

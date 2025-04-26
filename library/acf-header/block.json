@@ -1,0 +1,14 @@
+{
+    "name": "acf/acf-header",
+    "title": "Header",
+    "description": "Multi column header",
+    "style": [ "file:./dist/assets/css/editor.css" ],
+    "category": "avidd-blocks",
+    "icon": "welcome-widgets-menus",
+    "keywords": ["header"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template-parts/blocks/header-block.php"
+    },
+    "align": "full"
+}

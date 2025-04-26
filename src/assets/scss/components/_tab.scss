@@ -1,0 +1,169 @@
+
+.block-tab{
+
+	padding-left: 0;
+	padding-right: 0;
+	&.alignfull{
+		.block-tab-grid{
+			margin-left: calc( -50vw + 50% );
+	margin-right: calc( -50vw  + 50%  );
+	max-width: 100vw;
+		}
+	}
+	.block-tab-container {
+		@include xy-grid-container;
+			.block-tab-grid {
+			  @include xy-grid;
+		.block-tab-content{
+			@include xy-cell(12);
+		
+	
+		}
+		}
+	}
+
+}
+ .tabs {
+   display: flex;
+
+   @each $color,
+   $code in $foundation-palette {
+
+
+     .#{$color} {
+       color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance);
+
+       p {
+         color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance);
+       }
+
+       a {
+
+         color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance);
+         background: $code;
+
+         &:hover {
+           background: scale-color($code, $lightness: 20%);
+           color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance);
+         }
+
+         &:focus,
+         &[aria-selected='true'] {
+           background: scale-color($white);
+           color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance);
+         }
+       }
+
+     }
+   }
+
+   .tabs-title {
+     flex: 1;
+	text-transform: uppercase;
+	font-weight: $global-weight-medium;
+     @include breakpoint (medium) {
+       margin-right: 1rem;
+     }
+
+   }
+
+   .tabs-title:last-of-type {
+     margin-right: 0;
+   }
+
+   a {
+     font-size: rem-calc(14);
+    @include breakpoint (medium) {
+       font-size: rem-calc(20);
+    }
+     height: 100%;
+
+   }
+
+ }
+   .tabs-content {
+
+     // Loop through each color
+     @each $color,
+     $code in $foundation-palette {
+       .tabs-panel {
+         padding: 4rem 1rem 4rem 1rem;
+
+         @include breakpoint (large) {
+           padding: 4rem 4rem 2rem 1rem;
+         }
+
+         &.#{$color} {
+
+           // Target label elements directly within the tabs-panel
+           label,
+           a,
+           input,
+           textarea {
+             color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance);
+           }
+
+           input,
+           textarea {
+            
+             border-color: color-pick-contrast($code, $colors: ($white, $primary-color, $secondary-color), $tolerance: $global-color-pick-contrast-tolerance) !important;
+             ;
+           }
+
+           .submit-button {
+             background-color: color-pick-contrast($code, $colors: ($primary-color, $secondary-color), $tolerance:1);
+
+           }
+
+           input:focus,
+           textarea:focus {
+             color: $secondary-color;
+
+           }
+
+         }
+		 input,
+		 textarea{
+		border-color: $primary-color;
+ 		border-bottom: 2px solid;
+		 }
+
+         &.light-gray {
+           .submit-button {
+             background-color: $primary-color;
+           }
+         }
+
+         .wpcf7-file {
+           font-size: 0.9rem;
+         }
+
+         .cta-text {
+           p {
+             font-size: rem-calc(22);
+           }
+
+           text-transform: uppercase;
+           padding-right:1rem;
+
+           @include breakpoint (medium) {
+             padding-right: 1rem;
+
+             p {
+               font-size: rem-calc(26);
+             }
+           }
+
+           @include breakpoint (large) {
+             padding-right: 4rem;
+
+             p {
+               font-size: rem-calc(40);
+             }
+           }
+
+           font-weight: 600;
+         }
+       }
+     }
+   }

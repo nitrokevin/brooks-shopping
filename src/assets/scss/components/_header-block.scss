@@ -1,0 +1,172 @@
+.block-header-block {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  max-width: 100vw;
+  padding-left: 0;
+  padding-right: 0;
+ 
+
+  .block-header-block-container {
+    padding-left: 0;
+    padding-right: 0;
+
+    @include breakpoint(medium) {
+      @include xy-grid-container;
+    }
+  }
+
+  .block-header-block-grid {
+    @include xy-grid;
+    @include xy-cell(12, $gutters: 0);
+
+      &.alignfull {
+        .block-header-block-grid {
+          @include xy-grid;
+          @include xy-cell(12);
+        }
+
+        .block-header-block-grid-alignfull {
+          margin-left: calc(-50vw + 50%);
+          margin-right: calc(-50vw + 50%);
+          max-width: 100vw;
+          padding: 0;
+        }
+
+      }
+$header-block-layouts: (2: (3, 9), // 2 blocks: 25% first, 75% second
+  3: (3, 4.5, 4.5), // 3 blocks: 25% first, 37.5% others
+  4: (3, 3, 3, 3), // 4 blocks: All equal
+  5: (3, 2.25, 2.25, 2.25, 2.25) // 5 blocks: 25% first, rest equal
+);
+
+.header-blocks {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header-block {
+  @include flex-align($x: left, $y: top);
+  position: relative;
+  min-height: 14.5rem;
+  padding: 1.8rem;
+
+
+
+   
+    @each $num,
+    $sizes in $header-block-layouts {
+       &.layout-#{$num}{
+    
+        @for $i from 1 through length($sizes) {
+            @include xy-cell(12, $gutters: 0);
+             @include breakpoint(medium) {
+               &:nth-child(#{$i}) {
+                 @include xy-cell(6, $gutters: 0);
+               }
+
+             }
+            @include breakpoint(large) {
+          &:nth-child(#{$i}) {
+            @include xy-cell(nth($sizes, $i), $gutters: 0);
+          }
+        
+      }
+      }
+    }
+  
+}
+
+
+
+      /* Pseudo-elements for the first and last columns */
+      &:first-child::before,
+      &:last-child::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50vw;
+        /* Extend half the viewport width */
+        z-index: -1;
+        /* Ensure it appears behind the content */
+        background-color: inherit;
+        /* Matches the block's background color */
+      }
+      &:first-child{
+        padding:1rem;
+      }
+
+      &:first-child::before {
+        left: -50vw;
+        /* Extend to the left */
+      }
+
+      &:last-child::after {
+        right: -50vw;
+        /* Extend to the right */
+      }
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      &:has(.align-self-bottom a) {
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.08);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          z-index: 1;
+        }
+      }
+      h1{
+        padding-top: 2rem;
+        @include breakpoint(medium) {
+          padding-top: 8rem;
+        }
+        @include breakpoint(large){
+        padding-top:14rem;
+        }
+         text-transform: uppercase;
+      }
+      .icon-container{
+        @include xy-grid;
+        @include flex-align($x:center);
+        .icon{
+          @include xy-cell(5);
+          @include breakpoint(medium){
+          @include xy-cell(6);
+          }
+           @include breakpoint(large) {
+             @include xy-cell(8);
+           }
+          margin-bottom: $global-margin*2;
+        }
+      }
+
+ .heading {
+   @include breakpoint(small) {
+     font-size: rem-calc(17);
+   }
+
+   @include breakpoint(medium) {
+     font-size: rem-calc(20);
+   }
+
+
+   font-weight: $global-weight-bold;
+   text-transform: uppercase;
+ }
+
+      a i {
+        font-size: 3rem;
+        transition: transform 0.3s ease, font-size 0.3s ease;
+
+        &:hover {
+          transform: scale(2.5);
+        }
+      }
+    }
+  }
+}

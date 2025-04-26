@@ -1,0 +1,50 @@
+.block-cta-block-container {
+  height: 100%;
+  text-align: center;
+
+  .cta-block {
+    @include card-container($background: $medium-gray,
+      $color:inherit,
+      $margin: 0,
+      $border: 0px,
+      $radius: 0px,
+      $shadow: 0);
+    display: flex;
+    height: 100%; // Ensures the card stretches
+    margin-bottom: 0;
+  }
+
+  .cta-header {
+    font-size: rem-calc(20);
+    color: $black;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5rem 0;
+    font-weight: $global-weight-bold;
+  }
+
+  .header-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 0 !important;
+    padding-bottom: 60% !important;
+  }
+
+  .cta-content {
+    padding: 2rem;
+
+    p {
+      font-size: rem-calc(20);
+    }
+
+  }
+
+  .cta-link {
+    padding: 2rem;
+    width: 100%;
+    margin-top: auto;
+    align-self: flex-end;
+    text-align: center;
+  }
+}
