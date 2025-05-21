@@ -73,24 +73,34 @@ $slider = get_field('slider'); ?>
                             </header>
                         </li>
                     <?php } elseif ($media_type == 2 && $slider_video_teaser) { 
-                        // Video Slider
-                        ?>
-                        <li class="swiper-slide">
-                            <header class="front-hero video-slide" role="banner">
-                                <div class="video-wrapper">
-                                    <video class="slider-video" autoplay muted loop playsinline>
-                                        <source src="<?php echo esc_url($slider_video_teaser); ?>" type="video/webm">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                    <div class="marketing">
-                                        <div class="tagline">
-                                             <?php echo $slider_content ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </header>
-                        </li>
-                    <?php } ?>
+    // Video Slider with featured image fallback
+    $small = get_the_post_thumbnail_url(null, 'featured-small');
+    $medium = get_the_post_thumbnail_url(null, 'featured-medium');
+    $large = get_the_post_thumbnail_url(null, 'featured-large');
+    $xlarge = get_the_post_thumbnail_url(null, 'featured-xlarge');
+    ?>
+    <li class="swiper-slide">
+        <header class="front-hero video-slide" role="banner"
+            data-interchange="[<?php echo esc_url($small); ?>, small], 
+                              [<?php echo esc_url($medium); ?>, medium], 
+                              [<?php echo esc_url($large); ?>, large], 
+                              [<?php echo esc_url($xlarge); ?>, xlarge]"
+            data-type="background">
+            <div class="video-wrapper">
+                <video class="slider-video" autoplay muted loop playsinline poster="<?php echo esc_url($xlarge); ?>">
+                    <source src="<?php echo esc_url($slider_video_teaser); ?>" type="video/webm">
+                    <img src="<?php echo esc_url($xlarge); ?>" alt="Fallback image">
+                </video>
+                <div class="marketing">
+                    <div class="tagline">
+                        <?php echo $slider_content ?>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </li>
+<?php } ?>
+
                 <?php } // End while ?>
             <?php } // End if ?>
         </div>

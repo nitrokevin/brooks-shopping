@@ -28,16 +28,8 @@ $large = $footer_background_image['sizes']['featured-large'];
 $xlarge = $footer_background_image['sizes']['featured-xlarge'];
 };
 ?>
-
-<<<<<<< HEAD
-<footer class="footer">
-	<?php if($footer_background_image){ ?>
-<div class="footer-background-image" <?php if ($footer_background_image) { ?> data-interchange="[<?php echo $small; ?>, small], [<?php echo $medium;?>, medium], [<?php echo $large;?>, large], [<?php echo $xlarge;?>, xlarge]"<?php } ?>>
-</div>
-<?php } ?>
-=======
-<footer class="footer"  <?php if ($footer_background_image) { ?> data-interchange="[<?php echo $small; ?>, small], [<?php echo $medium;?>, medium], [<?php echo $large;?>, large], [<?php echo $xlarge;?>, xlarge]" data-type="background"<?php } ?> >
->>>>>>> 0f888b7b77be290d583f5997698265867bb0a810
+<footer class="footer" >
+<div class="footer-background-image"  <?php if ($footer_background_image) { ?> data-interchange="[<?php echo $small; ?>, small], [<?php echo $medium;?>, medium], [<?php echo $large;?>, large], [<?php echo $xlarge;?>, xlarge]" data-type="background"<?php } ?> ></div>
 <div class="footer-container">
 
 	<div class="footer-grid">
@@ -161,12 +153,13 @@ endif; ?>
 			<?php foundationpress_footer_nav_r(); ?>
 		<ul class="footer-contact menu  footer-menu show-for-large">
 		<li><?php echo '&copy; ' . esc_attr(get_bloginfo('name', 'display')) .' ' . mysql2date('Y', get_user_option('user_registered', 1)) .  '-' .  date('Y') . "." ;?></li>
+		<li><?php echo 'Company Number: ' . $footer_company_number ?></li>
 		</ul>
 		<hr class="show-for-small-only">
 		</section>
 	</div>
 </div>
-</footer>
+</div>
 
 <?php if ( get_theme_mod( 'wpt_mobile_menu_layout' ) === 'offcanvas' ) : ?>
 	</div><!-- Close off-canvas content -->

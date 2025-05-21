@@ -7,7 +7,7 @@
  * @package FoundationPress
  * @since FoundationPress 1.0.0
  */
-
+$link   = get_field('link');
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -50,6 +50,12 @@
 			echo '</div>';
 			foundationpress_entry_meta(); 
 			echo '<hr>';
+			echo '<br />';
+			if ( ! empty( $link ) ) {
+				echo '<a href="' . esc_url( $link ) . '" class="button">'
+					. esc_html( 'Discover ' . get_the_title( url_to_postid( $link ) ) )
+					. '</a>';
+			}
 			the_content();
 			
 			

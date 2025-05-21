@@ -226,6 +226,52 @@ acf_add_local_field_group(array(
 	'show_in_rest' => false,
 ));
 
+
+//Post Options
+acf_add_local_field_group(array(
+	'key' => 'group_5c756aajksalhd',
+	'title' => 'Post Options',
+	'fields' => array(
+		array(
+			'key' => 'field_6kjdsjuyfhsoych',
+			'label' => 'Link',
+			'name' => 'link',
+			'type' => 'page_link',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '100',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+	),
+	'location' => array(	
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'post',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'side',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => false,
+));
+
 //Stores 
 acf_add_local_field_group(array(
     'key' => 'group_stores',
