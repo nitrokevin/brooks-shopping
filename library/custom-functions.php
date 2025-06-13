@@ -435,3 +435,23 @@ function filter_search_results($query) {
     }
 }
 add_action('pre_get_posts', 'filter_search_results');
+
+
+// Remove the default [...] from excerpts
+function themeprefix_remove_excerpt_more( $more ) {
+    return '';
+}
+add_filter( 'excerpt_more', 'themeprefix_remove_excerpt_more' );
+
+// Add a "Read More" button only to post excerpts
+function themeprefix_excerpt_read_more_link( $output ) {
+    global $post;
+
+    if ( get_post_type( $post ) === 'post' ) {
+        $output .= ' <a href="' . get_permalink( $post->ID ) . '" class="moretag button" title="Read More">Read More</a>';
+    }
+
+    return $output;
+}
+add_filter( 'the_excerpt', 'themeprefix_excerpt_read_more_link' );
+

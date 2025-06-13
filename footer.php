@@ -29,7 +29,9 @@ $xlarge = $footer_background_image['sizes']['featured-xlarge'];
 };
 ?>
 <footer class="footer" >
-<div class="footer-background-image"  <?php if ($footer_background_image) { ?> data-interchange="[<?php echo $small; ?>, small], [<?php echo $medium;?>, medium], [<?php echo $large;?>, large], [<?php echo $xlarge;?>, xlarge]" data-type="background"<?php } ?> ></div>
+<?php if ($footer_background_image) { ?>
+<div class="footer-background-image"   data-interchange="[<?php echo $small; ?>, small], [<?php echo $medium;?>, medium], [<?php echo $large;?>, large], [<?php echo $xlarge;?>, xlarge]" data-type="background"></div>
+<?php } ?>
 <div class="footer-container">
 
 	<div class="footer-grid">
