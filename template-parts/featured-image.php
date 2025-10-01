@@ -12,12 +12,7 @@ if ( has_post_thumbnail( $post->ID ) && is_front_page() ) : ?>
 </header>
 	<?php endif;
 if ( has_post_thumbnail( $post->ID ) && !is_front_page()) : ?>
-<<<<<<< HEAD
 
 	<div class="store-featured-hero" role="banner" data-interchange="[<?php the_post_thumbnail_url( 'featured-small' ); ?>, small], [<?php the_post_thumbnail_url( 'featured-medium' ); ?>, medium], [<?php the_post_thumbnail_url( 'featured-large' ); ?>, large], [<?php the_post_thumbnail_url( 'featured-xlarge' ); ?>, xlarge]" data-type="background">
 	</div>
-=======
-	<header class="featured-hero" role="banner" data-interchange="[<?php the_post_thumbnail_url( 'featured-small' ); ?>, small], [<?php the_post_thumbnail_url( 'featured-medium' ); ?>, medium], [<?php the_post_thumbnail_url( 'featured-large' ); ?>, large], [<?php the_post_thumbnail_url( 'featured-xlarge' ); ?>, xlarge]" data-type="background">
-	</header>
->>>>>>> 0f888b7b77be290d583f5997698265867bb0a810
 <?php endif;

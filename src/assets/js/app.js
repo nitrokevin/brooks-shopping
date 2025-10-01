@@ -11,14 +11,13 @@ import './lib/swiper';
 import './lib/loadmore';
 
 $(function () {
-
-
-  $(".sbi_imgLiquid_bgSize").imgLiquid({
-    fill: false,
-    horizontalAlign: "center",
-    verticalAlign: "90%"
-  });
-
+  if ($.fn.imgLiquid) {
+    $(".sbi_imgLiquid_bgSize").imgLiquid({
+      fill: false,
+      horizontalAlign: "center",
+      verticalAlign: "90%"
+    });
+  }
 });
 
 $(document).foundation();
