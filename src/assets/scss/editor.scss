@@ -17,6 +17,7 @@
 @import "components/nav-block";
 @import "components/info-block";
 @import "components/calltoaction";
+@import "components/header-block";
 
 
 
@@ -157,4 +158,11 @@ ul.acf-swatch-list .swatch-toggle {
 .swiper-wrapper,
 .nav-blocks {
 	display: flex !important;
+}
+
+.block-header-block .block-header-block-grid .header-block{
+	padding:0;
+}
+.block-header-block .block-header-block-grid .header-blocks{
+	flex-wrap: nowrap;
 }

@@ -64,9 +64,15 @@ if( !empty($block['align']) ) {
             <?php endif; ?>
 
             <div class="cta-link">
-                <a href="<?php echo esc_url( $cta_page_link['url'] ); ?>" class="button expanded <?php echo esc_attr( $cta_color ); ?>">
-                   <?php echo  $cta_page_link['title'] ; ?>
-                </a>
+             <?php if ( is_array($cta_page_link) ) : ?>
+    <a href="<?php echo esc_url( $cta_page_link['url'] ); ?>" class="button expanded <?php echo esc_attr( $cta_color ); ?>">
+        <?php echo esc_html( $cta_page_link['title'] ); ?>
+    </a>
+<?php elseif ( is_string($cta_page_link) && !empty($cta_page_link) ) : ?>
+    <a href="<?php echo esc_url( $cta_page_link ); ?>" class="button expanded <?php echo esc_attr( $cta_color ); ?>">
+        <?php echo esc_html( $button_text ?: 'Learn More' ); ?>
+    </a>
+<?php endif; ?>
             </div>
         </div>
    

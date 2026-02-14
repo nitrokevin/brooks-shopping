@@ -168,6 +168,66 @@ function my_remove_admin_menus() {
     remove_menu_page( 'edit-comments.php' );
 }
 
+
+// TODAY'S SPECIAL HOURS ONLY
+function todays_special_hours_shortcode() {
+
+    $specials = get_theme_mod('special_opening_times');   // exact-date overrides
+    $today_date = date('Y-m-d');
+
+    if (!empty($specials)) {
+        foreach ($specials as $sp) {
+            if (!empty($sp['date']) && $sp['date'] === $today_date) {
+
+                $hours = !empty($sp['hours']) ? esc_html($sp['hours']) : '';
+                $note  = !empty($sp['note']) ? esc_html($sp['note']) : '';
+
+                $label = $note ? "Today ({$note})" : "Today";
+
+                return "<div class='today-special-hours'>
+                    <strong>{$label}:</strong> {$hours}
+                </div>";
+            }
+        }
+    }
+
+    // Nothing for today → return empty string
+    return '';
+}
+
+add_shortcode('today_hours', 'todays_special_hours_shortcode');
+
+// TODAY'S CAR PARK SPECIAL HOURS ONLY
+function todays_carpark_special_hours_shortcode() {
+
+    $specials = get_theme_mod('special_carpark_opening_times');   // date-specific overrides
+    $today_date = date('Y-m-d');
+
+    if (!empty($specials)) {
+        foreach ($specials as $sp) {
+            if (!empty($sp['date']) && $sp['date'] === $today_date) {
+
+                $hours      = esc_html($sp['hours'] ?? '');
+                $last_entry = esc_html($sp['lastentry'] ?? '');
+                $note       = esc_html($sp['note'] ?? '');
+
+                $label = $note ? "Today ({$note})" : "Today";
+
+                return "<div class='today-carpark-special-hours'>
+                    <strong>{$label}:</strong> {$hours}<br>
+                    <span class='last-entry'>Last Entry: {$last_entry}</span>
+                </div>";
+            }
+        }
+    }
+
+    // No special car park hours today → show nothing
+    return '';
+}
+
+add_shortcode('today_carpark_hours', 'todays_carpark_special_hours_shortcode');
+
+
 // Register the shortcode for opening times
 function opening_times_shortcode($atts) {
     $atts = shortcode_atts(
@@ -242,6 +302,144 @@ function carpark_opening_times_shortcode($atts) {
 }
 // Register the shortcode [opening_times]
 add_shortcode('carpark_opening_times', 'carpark_opening_times_shortcode');
+
+function special_hours_combined_by_month_shortcode() {
+
+    $store_specials    = get_theme_mod('special_opening_times');          // store specials
+    $carpark_specials  = get_theme_mod('special_carpark_opening_times');  // car park specials
+
+    if (empty($store_specials) && empty($carpark_specials)) {
+        return '<p>No special opening hours set.</p>';
+    }
+
+    // Calculate cutoff date (1 month ago)
+    $cutoff_timestamp = strtotime('-1 month');
+    
+    // Merge both arrays by date
+    $all_dates = [];
+
+    if (!empty($store_specials)) {
+        foreach ($store_specials as $sp) {
+            if (!empty($sp['date'])) {
+
+                $event_timestamp = strtotime($sp['date']);
+                if ($event_timestamp < $cutoff_timestamp) {
+                    continue; // Skip events older than 1 month
+                }
+
+                $all_dates[$sp['date']]['store_hours'] = $sp['hours'] ?? '';
+                $all_dates[$sp['date']]['store_note']  = $sp['note'] ?? '';
+            }
+        }
+    }
+
+    if (!empty($carpark_specials)) {
+        foreach ($carpark_specials as $sp) {
+            if (!empty($sp['date'])) {
+
+                $event_timestamp = strtotime($sp['date']);
+                if ($event_timestamp < $cutoff_timestamp) {
+                    continue; // Skip events older than 1 month
+                }
+
+                $all_dates[$sp['date']]['carpark_hours'] = $sp['hours'] ?? '';
+                $all_dates[$sp['date']]['last_entry']    = $sp['lastentry'] ?? '';
+                $all_dates[$sp['date']]['carpark_note']  = $sp['note'] ?? '';
+            }
+        }
+    }
+
+    if (empty($all_dates)) {
+        return '<p>No special opening hours available.</p>';
+    }
+
+    // Sort by date ascending
+    ksort($all_dates);
+
+    // Group by month
+    $grouped = [];
+    foreach ($all_dates as $date => $data) {
+        $month_key = date('F Y', strtotime($date));
+        $grouped[$month_key][$date] = $data;
+    }
+
+    // Start output
+    ob_start();
+
+    foreach ($grouped as $month => $dates) {
+        echo "<h3 class='special-month'>{$month}</h3>";
+        echo '<table class="special-opening-combined stack" border="1" cellpadding="6" cellspacing="0">';
+        echo '<thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>Store Hours</th>
+                    <th>Car Park Hours</th>
+                    <th>Last Entry</th>
+                </tr>
+              </thead>';
+        echo '<tbody>';
+
+        foreach ($dates as $date => $data) {
+            $formatted_date = date('j F Y', strtotime($date));
+
+            $store_hours   = esc_html($data['store_hours'] ?? '');
+            $carpark_hours = esc_html($data['carpark_hours'] ?? '');
+            $last_entry    = esc_html($data['last_entry'] ?? '');
+
+            $store_note   = !empty($data['store_note']) ? esc_html($data['store_note']) : '';
+            $carpark_note = !empty($data['carpark_note']) ? esc_html($data['carpark_note']) : '';
+
+            // Combine notes, de-duplicate if identical
+            if ($store_note && $carpark_note) {
+                $note_combined = ($store_note === $carpark_note)
+                    ? $store_note
+                    : $store_note . ' / ' . $carpark_note;
+            } else {
+                $note_combined = $store_note ?: $carpark_note;
+            }
+
+            echo "<tr>
+                    <td data-label='Date'>{$formatted_date}</td>
+                    <td data-label='Event'>{$note_combined}</td>
+                    <td data-label='Store Hours'>{$store_hours}</td>
+                    <td data-label='Car Park Hours'>{$carpark_hours}</td>
+                    <td data-label='Last Entry'>{$last_entry}</td>
+                  </tr>";
+        }
+
+        echo '</tbody></table>';
+    }
+
+    return ob_get_clean();
+}
+add_shortcode('special_hours_combined_by_month', 'special_hours_combined_by_month_shortcode');
+// SHORTCODE: [opening_hours_message]
+function opening_hours_message_shortcode() {
+
+    $enabled = get_theme_mod('opening-hours-message-switch', 'off');
+
+    // Make the check robust for both 'on' and true
+    if ($enabled !== 'on' && $enabled !== true) {
+        return ''; // Switch is off
+    }
+
+
+    // Get the message and URL
+    $message = get_theme_mod('opening-hours-message', '');
+    $url     = get_theme_mod('opening-hours-message-url', '#');
+
+      if (!$message) {
+        return ''; // No message set
+    }
+
+  
+
+  return '<div class="opening-hours-message">
+        <a href="' . esc_url($url) . ' " class="button small light-gray">' . esc_html($message) . '</a>
+    </div>';
+}
+add_shortcode('opening_hours_message', 'opening_hours_message_shortcode');
 
 // Register shortcode for latest event
 function latest_event_shortcode($atts) {
@@ -335,7 +533,7 @@ function latest_event_shortcode($atts) {
         }
         wp_reset_postdata();
     } else {
-        echo '<p>No upcoming events found.</p>';
+       
     }
 
     return ob_get_clean();
@@ -454,4 +652,3 @@ function themeprefix_excerpt_read_more_link( $output ) {
     return $output;
 }
 add_filter( 'the_excerpt', 'themeprefix_excerpt_read_more_link' );
-

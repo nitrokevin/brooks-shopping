@@ -679,3 +679,26 @@ flex-direction: column;
 
  
 }
+
+
+@media only screen and (max-width: 640px) {
+  table.special-opening-combined.stack td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  table.special-opening-combined.stack td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+  }
+
+  table.special-opening-combined.stack thead {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 .cards-container {
 	@include xy-grid;
-
+width:100%;
 	.card {
 		@include breakpoint(small) {
 			@include xy-cell(12);

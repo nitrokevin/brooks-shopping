@@ -471,6 +471,54 @@ new \Kirki\Field\Image(
 //Site Settings
 
 
+new \Kirki\Field\Checkbox_Switch(
+	[
+		'settings'    => 'opening-hours-message-switch',
+		'label'       => esc_html__( 'Opening hours message', 'avidd'  ),
+		'description' => esc_html__( '', 'avidd' ),
+		'section'     => 'opening_times',
+		'default'     => 'off',
+		'choices'     => [
+			'on'  => esc_html__( 'Enable', 'avidd' ),
+			'off' => esc_html__( 'Disable', 'avidd' ),
+		],
+	]
+);
+
+new \Kirki\Field\Text(
+	[
+		'settings' => 'opening-hours-message',
+		'label'    => esc_html__( 'Opening hours message', 'avidd' ),
+		'section'  => 'opening_times',
+		'default'  => '',
+		'priority' => 10,
+		'active_callback'  => [
+			[
+				'setting'  => 'opening-hours-message-switch',
+				'operator' => '===',
+				'value'    => true,
+			],
+		],
+	],
+);
+
+new \Kirki\Field\URL(
+	[
+		'settings' => 'opening-hours-message-url',
+		'label'    => esc_html__( 'Opening hours Link', 'avidd' ),
+		'section'  => 'opening_times',
+		'default'  => 'https://brooks-shopping.co.uk/',
+		'priority' => 10,
+		'active_callback'  => [
+			[
+				'setting'  => 'opening-hours-message-switch',
+				'operator' => '===',
+				'value'    => true,
+			],
+		],
+	],
+);
+
 
 
 new \Kirki\Field\Repeater(
@@ -522,28 +570,51 @@ new \Kirki\Field\Repeater(
 	]
 );
 
-new \Kirki\Field\Repeater(
-	[
-		'settings' => 'special_opening_times',
-		'label'    => esc_html__( 'Special Opening Hours', 'avidd' ),
-		'section'  => 'opening_times',
-		'priority' => 11,
-		'fields'   => [
-      'day' =>[
-        'type'        => 'text',
-        'label'       => esc_html__( 'Day', 'avidd' ),
-       
-      
-      ],
-	  'hours'    => [
-		'type'        => 'text',
-		'label'       => esc_html__( 'Hours', 'avidd' ),
-	
-	],
-		],
-	]
-);
+new \Kirki\Field\Repeater([
+    'settings' => 'special_opening_times',
+    'label'    => esc_html__('Special Opening Hours', 'avidd'),
+    'section'  => 'opening_times',
+    'priority' => 12,
+    'fields'   => [
+        'date' => [
+            'type'  => 'date',
+            'label' => esc_html__('Date (YYYY-MM-DD)', 'avidd'),
+        ],
+        'hours' => [
+            'type'  => 'text',
+            'label' => esc_html__('Hours', 'avidd'),
+        ],
+        'note' => [
+            'type' => 'text',
+            'label' => esc_html__('Note (optional)', 'avidd'),
+        ],
+    ],
+]);
 
+new \Kirki\Field\Repeater([
+    'settings' => 'special_carpark_opening_times',
+    'label'    => esc_html__('Special Car Park Opening Hours', 'avidd'),
+    'section'  => 'opening_times',
+    'priority' => 13,
+    'fields'   => [
+        'date' => [
+            'type'  => 'date',
+            'label' => esc_html__('Date (YYYY-MM-DD)', 'avidd'),
+        ],
+        'hours' => [
+            'type'  => 'text',
+            'label' => esc_html__('Hours', 'avidd'),
+        ],
+        'lastentry' => [
+            'type'  => 'text',
+            'label' => esc_html__('Last Entry', 'avidd'),
+        ],
+        'note' => [
+            'type'  => 'text',
+            'label' => esc_html__('Note (optional)', 'avidd'),
+        ],
+    ],
+]);
 
 // CUSTOMIZER FOOTER CONTACT
 function footer_contact_customizer( $wp_customize ) {

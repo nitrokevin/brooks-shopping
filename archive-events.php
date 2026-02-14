@@ -85,7 +85,7 @@ get_header(); ?>
             echo '</section>';
         endforeach;
     else :
-        echo '<p>' . esc_html__('No upcoming events available.', 'foundationpress') . '</p>';
+       
     endif;
     ?>
 

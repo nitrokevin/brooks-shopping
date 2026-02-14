@@ -18,26 +18,40 @@ $slider = get_field('slider'); ?>
 <?php if (($slider == 1)) { ?>
 <header class="front-hero" role="banner">
     <?php get_template_part('template-parts/form-off-canvas'); ?>
-<?php $notifications = get_theme_mod('notification_slider_repeater', []);
- if (($notifications)) { ?>
+<?php 
+$notifications = get_theme_mod('notification_slider_repeater', []);
+
+if (!empty($notifications)) { ?>
     <div class="swiper notice-carousel">
         <div class="swiper-wrapper">
-            <?php 
-            if (!empty($notifications)) {
-                foreach ($notifications as $notification) { ?>
-                    <div class="swiper-slide">
-                        <a href="<?php echo esc_html($notification['slide_link']); ?>">
-                        <p><?php echo esc_html($notification['slide_header']); ?></p>
-                        <p><strong><?php echo esc_html($notification['slide_text']); ?></strong></p>
-                        </a>
-                    </div>
-                <?php }
-            } ?>
+            <?php foreach ($notifications as $notification) { ?>
+
+                <div class="swiper-slide">
+                    <a href="<?php echo esc_url($notification['slide_link']); ?>">
+
+                        <p><?php 
+                            // Allow shortcodes + safe HTML
+                            echo wp_kses_post(
+                                do_shortcode($notification['slide_header'])
+                            ); 
+                        ?></p>
+
+                        <p><strong><?php 
+                            echo wp_kses_post(
+                                do_shortcode($notification['slide_text'])
+                            ); 
+                        ?></strong></p>
+
+                    </a>
+                </div>
+
+            <?php } ?>
         </div>
-          <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
+
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
-    <?php } ?>
+<?php } ?>
     <div class="swiper featured-carousel">
         <div class="swiper-wrapper">
 

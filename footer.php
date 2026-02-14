@@ -91,25 +91,74 @@ $xlarge = $footer_background_image['sizes']['featured-xlarge'];
 				<source srcset="<?php echo esc_url(get_theme_mod('header_logo_dark')); ?>" media="(prefers-color-scheme: dark)">
 				<img src="<?php echo esc_url(get_theme_mod('header_logo')); ?>" alt="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>">
 			</picture>
-			<?php if ( ! empty( $opening_times ) ) :
-			echo '<div class="opening-hours h5">';
-			echo 'Opening Hours';
-			echo '</div>';
-    echo '<ul class="opening-times">';
-    foreach ( $opening_times as $time ) :
-        $day = isset( $time['day'] ) ? esc_html( $time['day'] ) : '';
-        $hours = isset( $time['hours'] ) ? esc_html( $time['hours'] ) : '';
-        ?>
-        <li>
-            <strong><?php echo $day; ?>:</strong> <?php echo $hours; ?>
-        </li>
-        <?php
-    endforeach;
-    echo '</ul>';
-	echo '<span class="small">';
-			echo '* Individual store opening times may vary';
-			echo '</span>';
-endif; ?>
+			<?php
+// Load data
+$opening_times = get_theme_mod('opening_times');
+$specials      = get_theme_mod('special_opening_times');
+
+$today = date('Y-m-d');
+$has_special_today = false;
+
+// Detect if today has a special override
+if (!empty($specials)) {
+    foreach ($specials as $sp) {
+        if (!empty($sp['date']) && $sp['date'] === $today) {
+            $has_special_today = true;
+            break;
+        }
+    }
+}
+
+// If special today → show today's hours only
+if ($has_special_today) {
+  echo '<div class="opening-hours h5">Opening Hours</div>';
+   echo do_shortcode('[opening_hours_message]');
+    echo do_shortcode('[today_hours]');
+	echo '<br />';
+	  if (!empty($opening_times)) :
+        echo '<div class="opening-hours h6">Normal Opening Hours</div>';
+        echo '<ul class="opening-times">';
+
+        foreach ($opening_times as $time) :
+            $day   = esc_html($time['day'] ?? '');
+            $hours = esc_html($time['hours'] ?? '');
+            ?>
+            <li>
+                <strong><?php echo $day; ?>:</strong> <?php echo $hours; ?>
+            </li>
+            <?php
+        endforeach;
+
+        echo '</ul>';
+        echo '<span class="small">* Individual store opening times may vary</span>';
+    endif;
+
+
+} else {
+
+    // Otherwise → weekly schedule
+    if (!empty($opening_times)) :
+        echo '<div class="opening-hours h5">Opening Hours</div>';
+	
+		 echo do_shortcode('[opening_hours_message]');
+        echo '<ul class="opening-times">';
+
+        foreach ($opening_times as $time) :
+            $day   = esc_html($time['day'] ?? '');
+            $hours = esc_html($time['hours'] ?? '');
+            ?>
+            <li>
+                <strong><?php echo $day; ?>:</strong> <?php echo $hours; ?>
+            </li>
+            <?php
+        endforeach;
+
+        echo '</ul>';
+        echo '<span class="small">* Individual store opening times may vary</span>';
+    endif;
+
+}
+?>
 		
 		<hr class="show-for-small-only">
 		</section>

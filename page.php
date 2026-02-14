@@ -10,9 +10,91 @@
  * @since FoundationPress 1.0.0
  */
 
-get_header(); ?>
+get_header(); $slider = get_field('slider'); ?>
+<?php if (($slider == 0) && (has_post_thumbnail( $post->ID ))) { ?>
+<header class="front-hero" role="banner" data-interchange="[<?php the_post_thumbnail_url( 'featured-small' ); ?>, small], [<?php the_post_thumbnail_url( 'featured-medium' ); ?>, medium], [<?php the_post_thumbnail_url( 'featured-large' ); ?>, large], [<?php the_post_thumbnail_url( 'featured-xlarge' ); ?>, xlarge]" data-type="background">
 
-<?php get_template_part( 'template-parts/featured-image' ); ?>
+        <div class="marketing">
+    
+		<div class="tagline">
+			<h1><?php the_title(); ?></h1>
+		</div>
+	</div>
+</header>
+<?php } ?>
+<?php if (($slider == 1)) { ?>
+<header class="front-hero" role="banner">
+   
+
+    <div class="swiper featured-carousel">
+        <div class="swiper-wrapper">
+
+            <?php if (have_rows('repeater_featured_slider')) { 
+                while (have_rows('repeater_featured_slider')) { 
+                    the_row();
+                    
+                    $media_type = get_sub_field('media_type');
+                    $slider_image = get_sub_field('slider_image');
+                    $slider_video_teaser = get_sub_field('slider_video_teaser');
+                    $slider_video_full = get_sub_field('slider_video_full');
+                    $slider_content = get_sub_field('slider_content');
+
+                    if ($media_type == 1 && $slider_image) { 
+                        // Image Slider
+                        $small_image = $slider_image['sizes']['featured-small'] ?? $slider_image['url'];
+                        $medium_image = $slider_image['sizes']['featured-medium'] ?? $slider_image['url'];
+                        $large_image = $slider_image['sizes']['featured-large'] ?? $slider_image['url'];
+                        $xlarge_image = $slider_image['sizes']['featured-xlarge'] ?? $slider_image['url'];
+                        ?>
+                        <li class="swiper-slide">
+                            <header class="front-hero" role="banner" 
+                                data-interchange="[<?php echo esc_url($small_image); ?>, small], 
+                                                  [<?php echo esc_url($medium_image); ?>, medium], 
+                                                  [<?php echo esc_url($large_image); ?>, large], 
+                                                  [<?php echo esc_url($xlarge_image); ?>, xlarge]" 
+                                data-type="background">
+                                <div class="marketing">
+                                    <div class="tagline">
+                                        <?php echo $slider_content ?>
+                                    </div>
+                                </div>
+                            </header>
+                        </li>
+                    <?php } elseif ($media_type == 2 && $slider_video_teaser) { 
+    // Video Slider with featured image fallback
+    $small = get_the_post_thumbnail_url(null, 'featured-small');
+    $medium = get_the_post_thumbnail_url(null, 'featured-medium');
+    $large = get_the_post_thumbnail_url(null, 'featured-large');
+    $xlarge = get_the_post_thumbnail_url(null, 'featured-xlarge');
+    ?>
+    <li class="swiper-slide">
+        <header class="front-hero video-slide" role="banner"
+            data-interchange="[<?php echo esc_url($small); ?>, small], 
+                              [<?php echo esc_url($medium); ?>, medium], 
+                              [<?php echo esc_url($large); ?>, large], 
+                              [<?php echo esc_url($xlarge); ?>, xlarge]"
+            data-type="background">
+            <div class="video-wrapper">
+                <video class="slider-video" autoplay muted loop playsinline poster="<?php echo esc_url($xlarge); ?>">
+                    <source src="<?php echo esc_url($slider_video_teaser); ?>" type="video/webm">
+                    <img src="<?php echo esc_url($xlarge); ?>" alt="Fallback image">
+                </video>
+                <div class="marketing">
+                    <div class="tagline">
+                        <?php echo $slider_content ?>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </li>
+<?php } ?>
+
+                <?php } // End while ?>
+            <?php } // End if ?>
+        </div>
+    </div>
+</header>
+<?php } ?>
 <?php if ( !empty( get_the_content() ) ) {?> 
 <div class="main-container">
 	<div class="main-grid">
